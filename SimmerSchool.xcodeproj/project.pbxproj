@@ -19,6 +19,13 @@
 		1001955C192EEBA3009337BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10019544192EEBA3009337BD /* UIKit.framework */; };
 		10019564192EEBA3009337BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10019562192EEBA3009337BD /* InfoPlist.strings */; };
 		10019566192EEBA3009337BD /* SimmerSchoolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 10019565192EEBA3009337BD /* SimmerSchoolTests.m */; };
+		10019574192EFD9B009337BD /* SLYRecipeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10019573192EFD9B009337BD /* SLYRecipeBadge.m */; };
+		100195781931098A009337BD /* SLYGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 100195761931098A009337BD /* SLYGameViewController.m */; };
+		100195791931098A009337BD /* SLYGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 100195771931098A009337BD /* SLYGameViewController.xib */; };
+		1001957D19310A41009337BD /* SLYRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001957B19310A41009337BD /* SLYRecipeViewController.m */; };
+		1001957E19310A41009337BD /* SLYRecipeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1001957C19310A41009337BD /* SLYRecipeViewController.xib */; };
+		1001958919310E7D009337BD /* SLYRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958819310E7D009337BD /* SLYRecipe.m */; };
+		1001958C193110C7009337BD /* SLYRecipeStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958B193110C7009337BD /* SLYRecipeStepView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,18 @@
 		10019561192EEBA3009337BD /* SimmerSchoolTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimmerSchoolTests-Info.plist"; sourceTree = "<group>"; };
 		10019563192EEBA3009337BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10019565192EEBA3009337BD /* SimmerSchoolTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimmerSchoolTests.m; sourceTree = "<group>"; };
+		10019572192EFD9B009337BD /* SLYRecipeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeBadge.h; path = Models/SLYRecipeBadge.h; sourceTree = "<group>"; };
+		10019573192EFD9B009337BD /* SLYRecipeBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeBadge.m; path = Models/SLYRecipeBadge.m; sourceTree = "<group>"; };
+		100195751931098A009337BD /* SLYGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYGameViewController.h; path = Controllers/SLYGameViewController.h; sourceTree = "<group>"; };
+		100195761931098A009337BD /* SLYGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYGameViewController.m; path = Controllers/SLYGameViewController.m; sourceTree = "<group>"; };
+		100195771931098A009337BD /* SLYGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SLYGameViewController.xib; path = Controllers/SLYGameViewController.xib; sourceTree = "<group>"; };
+		1001957A19310A41009337BD /* SLYRecipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeViewController.h; path = Controllers/SLYRecipeViewController.h; sourceTree = "<group>"; };
+		1001957B19310A41009337BD /* SLYRecipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeViewController.m; path = Controllers/SLYRecipeViewController.m; sourceTree = "<group>"; };
+		1001957C19310A41009337BD /* SLYRecipeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SLYRecipeViewController.xib; path = Controllers/SLYRecipeViewController.xib; sourceTree = "<group>"; };
+		1001958719310E7D009337BD /* SLYRecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipe.h; path = Models/SLYRecipe.h; sourceTree = "<group>"; };
+		1001958819310E7D009337BD /* SLYRecipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipe.m; path = Models/SLYRecipe.m; sourceTree = "<group>"; };
+		1001958A193110C7009337BD /* SLYRecipeStepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeStepView.h; path = Views/SLYRecipeStepView.h; sourceTree = "<group>"; };
+		1001958B193110C7009337BD /* SLYRecipeStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeStepView.m; path = Views/SLYRecipeStepView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +128,9 @@
 			children = (
 				1001954F192EEBA3009337BD /* SLYAppDelegate.h */,
 				10019550192EEBA3009337BD /* SLYAppDelegate.m */,
+				10019571192EEBCB009337BD /* Controllers */,
+				10019570192EEBC8009337BD /* Views */,
+				1001956F192EEBC1009337BD /* Models */,
 				10019552192EEBA3009337BD /* Images.xcassets */,
 				10019547192EEBA3009337BD /* Supporting Files */,
 			);
@@ -142,6 +164,39 @@
 				10019562192EEBA3009337BD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1001956F192EEBC1009337BD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				10019572192EFD9B009337BD /* SLYRecipeBadge.h */,
+				10019573192EFD9B009337BD /* SLYRecipeBadge.m */,
+				1001958719310E7D009337BD /* SLYRecipe.h */,
+				1001958819310E7D009337BD /* SLYRecipe.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		10019570192EEBC8009337BD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1001958A193110C7009337BD /* SLYRecipeStepView.h */,
+				1001958B193110C7009337BD /* SLYRecipeStepView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		10019571192EEBCB009337BD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				100195751931098A009337BD /* SLYGameViewController.h */,
+				100195761931098A009337BD /* SLYGameViewController.m */,
+				100195771931098A009337BD /* SLYGameViewController.xib */,
+				1001957A19310A41009337BD /* SLYRecipeViewController.h */,
+				1001957B19310A41009337BD /* SLYRecipeViewController.m */,
+				1001957C19310A41009337BD /* SLYRecipeViewController.xib */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,8 +275,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100195791931098A009337BD /* SLYGameViewController.xib in Resources */,
 				1001954B192EEBA3009337BD /* InfoPlist.strings in Resources */,
 				10019553192EEBA3009337BD /* Images.xcassets in Resources */,
+				1001957E19310A41009337BD /* SLYRecipeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +298,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1001954D192EEBA3009337BD /* main.m in Sources */,
+				1001958C193110C7009337BD /* SLYRecipeStepView.m in Sources */,
 				10019551192EEBA3009337BD /* SLYAppDelegate.m in Sources */,
+				10019574192EFD9B009337BD /* SLYRecipeBadge.m in Sources */,
+				100195781931098A009337BD /* SLYGameViewController.m in Sources */,
+				1001958919310E7D009337BD /* SLYRecipe.m in Sources */,
+				1001957D19310A41009337BD /* SLYRecipeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
