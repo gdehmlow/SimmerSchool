@@ -8,6 +8,7 @@
 
 #import "SLYRecipeViewController.h"
 #import "SLYRecipeFlowBoxView.h"
+#import "SLYRecipeStepViewController.h"
 
 @interface SLYRecipeViewController () <SLYBoxDelegate>
 
@@ -69,9 +70,6 @@
 
 - (void)touchesEndedForBox:(SLYRecipeFlowBoxView *)box inBox:(BOOL)inBox
 {
-    if (inBox) {
-        NSLog(@"ended in view");
-    }
     [UIView animateWithDuration:0.10
                      animations:^{
                          box.frame = CGRectMake(box.frame.origin.x, box.frame.origin.y-10, box.frame.size.width, box.frame.size.height);
@@ -79,6 +77,11 @@
                      completion:^(BOOL finished){
                          //Do stuff when the animation completes
                      }];
+    if (inBox) {
+        SLYRecipeStepViewController *rsvc = [[SLYRecipeStepViewController alloc] init];
+        rsvc.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0];
+        [self.navigationController pushViewController:rsvc animated:YES];
+    }
 }
 
 // We'll create the colored boxes here
@@ -92,8 +95,11 @@
     UINavigationItem *navItem = self.navigationItem;
     navItem.title = @"Panned Cakes";
     
+    // self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
     [titleBarAttributes setValue:[UIFont fontWithName:@"Montserrat-Regular" size:18] forKey:NSFontAttributeName];
+    [titleBarAttributes setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forKey:NSForegroundColorAttributeName];
     [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
     
     UIView *curView = self.view;
