@@ -1,19 +1,18 @@
 //
-//  SLYGameViewController.m
+//  SLYRecipeStepViewController.m
 //  SimmerSchool
 //
-//  Created by Gregory Dehmlow on 5/24/14.
+//  Created by Gregory Dehmlow on 5/28/14.
 //  Copyright (c) 2014 Silly Wombat. All rights reserved.
 //
 
-#import "SLYGameViewController.h"
-#import "SLYRecipeViewController.h"
+#import "SLYRecipeStepViewController.h"
 
-@interface SLYGameViewController ()
+@interface SLYRecipeStepViewController ()
 
 @end
 
-@implementation SLYGameViewController
+@implementation SLYRecipeStepViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,12 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)recipeSelected:(UIButton *)sender
-{
-    NSLog(@"%@",sender.titleLabel.text);
-    //[self.navigationController pushViewController:[[SLYRecipeViewController alloc] initWithRecipe:sender.titleLabel.text] animated:YES];
 }
 
 @end

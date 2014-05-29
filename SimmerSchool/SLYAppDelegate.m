@@ -8,6 +8,7 @@
 
 #import "SLYAppDelegate.h"
 #import "SLYGameViewController.h"
+#import "SLYRecipeViewController.h"
 
 @implementation SLYAppDelegate
 
@@ -16,8 +17,15 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     SLYGameViewController *gvc = [[SLYGameViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:gvc];
-    self.window.rootViewController = navController;
+    
+    
+    SLYRecipeViewController *rvc = [[SLYRecipeViewController alloc] initWithRecipe:0];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rvc];
+    
+    
+    
+    //self.window.rootViewController = navController;
+    self.window.rootViewController = rvc;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
