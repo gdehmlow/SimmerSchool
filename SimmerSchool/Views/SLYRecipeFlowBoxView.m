@@ -57,7 +57,7 @@
 
     // Circle around step number
     UIBezierPath *path = [[UIBezierPath alloc] init];
-    CGFloat radius = 15;
+    CGFloat radius = 16;
     path.lineWidth = 4;
     [path moveToPoint:CGPointMake(center.x + radius, center.y)];
     [path addArcWithCenter:center radius:radius startAngle:0.0 endAngle:M_PI * 2.0 clockwise:YES];
@@ -66,11 +66,20 @@
 
     // Drop shadow beneath circle
     CGContextSaveGState(context);
-    UIColor * shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
+    UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
     CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor.CGColor);
     [path stroke];
     CGContextRestoreGState(context);
     [path fill];
+    
+    UIBezierPath *triangle = [UIBezierPath bezierPath];
+    [triangle moveToPoint:CGPointMake(center.x-3, 115)];
+    [triangle addLineToPoint:CGPointMake(center.x+3, 115)];
+    [triangle addLineToPoint:CGPointMake(center.x, 115 + 5)];
+    [triangle closePath];
+    [[UIColor whiteColor] setStroke];
+    [[UIColor whiteColor] setFill];
+    [triangle fill];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

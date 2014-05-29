@@ -18,14 +18,11 @@
     
     SLYGameViewController *gvc = [[SLYGameViewController alloc] init];
     
-    
     SLYRecipeViewController *rvc = [[SLYRecipeViewController alloc] initWithRecipe:0];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rvc];
     
-    
-    
-    //self.window.rootViewController = navController;
-    self.window.rootViewController = rvc;
+    self.window.rootViewController = navController;
+    //self.window.rootViewController = rvc;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
