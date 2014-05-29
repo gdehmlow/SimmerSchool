@@ -47,24 +47,18 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGRect bounds = self.bounds;
-
-    CGPoint center;
-    center.x = bounds.origin.x + bounds.size.width / 2.0;
-    center.y = bounds.origin.y + bounds.size.height / 2.0;
-    UIFont *font = [UIFont fontWithName:@"Montserrat-Regular" size:50];
+    
+    CGPoint center = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, bounds.origin.y + 32);
 
     // Draw the rectangle background
     const CGFloat* colors = CGColorGetComponents(self.color.CGColor);
     CGContextSetRGBFillColor(context, colors[0], colors[1], colors[2], 1.0);
     CGContextFillRect(context, rect);
 
-    // Centered step number
-    CGPoint point = CGPointMake(0, 0);
-
     // Circle around step number
     UIBezierPath *path = [[UIBezierPath alloc] init];
-    CGFloat radius = 30;
-    path.lineWidth = 7;
+    CGFloat radius = 15;
+    path.lineWidth = 4;
     [path moveToPoint:CGPointMake(center.x + radius, center.y)];
     [path addArcWithCenter:center radius:radius startAngle:0.0 endAngle:M_PI * 2.0 clockwise:YES];
     [[UIColor whiteColor] setStroke];
@@ -73,7 +67,7 @@
     // Drop shadow beneath circle
     CGContextSaveGState(context);
     UIColor * shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
-    CGContextSetShadowWithColor(context, CGSizeMake(0, 2), 2, shadowColor.CGColor);
+    CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor.CGColor);
     [path stroke];
     CGContextRestoreGState(context);
     [path fill];
@@ -81,27 +75,20 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    /*[UIView animateWithDuration:0.15
-                  animations:^{
-                      self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y+10, self.frame.size.width, self.frame.size.height);
-                  }
-                  completion:^(BOOL finished){
-                      //Do stuff when the animation completes
-                  }];
-    [self setNeedsDisplay];*/
-    [self.boxDelegate boxTouchesBegan];
+    [self.boxDelegate touchesBeganInBox:self];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    /*[UIView animateWithDuration:0.15
-                     animations:^{
-                         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y-10, self.frame.size.width, self.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
-                         //Do stuff when the animation completes
-                     }];*/
-    [self.boxDelegate boxTouchesEnded];
+    CGPoint location = [[touches anyObject] locationInView:self];
+    CGRect fingerRect = CGRectMake(location.x-5, location.y-5, 10, 10);
+    
+    BOOL inBox = NO;
+    if (CGRectIntersectsRect(fingerRect, self.bounds)) {
+        inBox = YES;
+    }
+    
+    [self.boxDelegate touchesEndedForBox:self inBox:inBox];
     [self setNeedsDisplay];
 }
 

@@ -12,8 +12,8 @@
 
 @protocol SLYBoxDelegate <NSObject>
 @optional
-- (void)boxTouchesBegan;
-- (void)boxTouchesEnded;
+- (void)touchesBeganInBox:(SLYRecipeFlowBoxView *)box;
+- (void)touchesEndedForBox:(SLYRecipeFlowBoxView *)box inBox:(BOOL)inBox;
 @end
 
 @interface SLYRecipeFlowBoxView : UIView

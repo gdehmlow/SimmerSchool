@@ -56,24 +56,25 @@
     self.view = backgroundView;
 }*/
 
-- (void)boxTouchesBegan
+- (void)touchesBeganInBox:(SLYRecipeFlowBoxView *)box
 {
     [UIView animateWithDuration:0.15
                      animations:^{
-                         self.box.frame = CGRectMake(self.box.frame.origin.x, self.box.frame.origin.y+10, self.box.frame.size.width, self.box.frame.size.height);
-                         self.boxLabel.frame = CGRectMake(self.boxLabel.frame.origin.x, self.boxLabel.frame.origin.y+10, self.boxLabel.frame.size.width, self.boxLabel.frame.size.height);
+                         box.frame = CGRectMake(box.frame.origin.x, box.frame.origin.y+10, box.frame.size.width, box.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          //Do stuff when the animation completes
                      }];
 }
 
-- (void)boxTouchesEnded
+- (void)touchesEndedForBox:(SLYRecipeFlowBoxView *)box inBox:(BOOL)inBox
 {
+    if (inBox) {
+        NSLog(@"ended in view");
+    }
     [UIView animateWithDuration:0.15
                      animations:^{
-                         self.box.frame = CGRectMake(self.box.frame.origin.x, self.box.frame.origin.y-10, self.box.frame.size.width, self.box.frame.size.height);
-                         self.boxLabel.frame = CGRectMake(self.boxLabel.frame.origin.x, self.boxLabel.frame.origin.y-10, self.boxLabel.frame.size.width, self.boxLabel.frame.size.height);
+                         box.frame = CGRectMake(box.frame.origin.x, box.frame.origin.y-10, box.frame.size.width, box.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          //Do stuff when the animation completes
@@ -87,6 +88,11 @@
     
     UIView *curView = self.view;
     
+    UIView *extrusion = [[UIView alloc] initWithFrame:CGRectMake(32, 64 + 128, 128, 12)];
+    UIColor *boxColorDark = [UIColor colorWithRed:0.85 green:0.687 blue:0.33 alpha:1.0];
+    extrusion.backgroundColor = boxColorDark;
+    [self.view addSubview:extrusion];
+    
     UIColor *boxColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0];
     SLYRecipeFlowBoxView *box = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32, 64, 128, 128)
                                                                     withBox:[self boxes][0]
@@ -95,34 +101,47 @@
     self.box = box;
     [self.view addSubview:box];
     
-    UIFont *font = [UIFont fontWithName:@"Montserrat-Regular" size:50];
-    UILabel *stepNumber = [[UILabel alloc] initWithFrame:CGRectMake(box.frame.origin.x, box.frame.origin.y, 128, 128)];
+    CGPoint center = CGPointMake(box.bounds.origin.x + box.bounds.size.width / 2.0,
+                                 box.bounds.origin.y + box.bounds.size.height / 2.0);
+    
+    UIFont *font = [UIFont fontWithName:@"Montserrat-Regular" size:24];
+    UILabel *stepNumber = [[UILabel alloc] initWithFrame:CGRectMake(box.bounds.origin.x + 51, box.bounds.origin.y + 20, 26, 26)];
     stepNumber.textColor = [UIColor whiteColor];
     stepNumber.textAlignment = NSTextAlignmentCenter;
     stepNumber.font = font;
     stepNumber.adjustsFontSizeToFitWidth = YES;
     stepNumber.layer.shadowColor = [[UIColor blackColor] CGColor];
-    stepNumber.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    stepNumber.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     stepNumber.layer.shadowRadius = 1;
     stepNumber.layer.shadowOpacity = 0.10;
-    [stepNumber setText:[self boxes][0][@"s"]];
+    [stepNumber setText:@"1"];
     self.boxLabel = stepNumber;
-    [self.view addSubview:stepNumber];
+    [box addSubview:stepNumber];
     
-    UIView *extrusion = [[UIView alloc] initWithFrame:CGRectMake(32, 64 + 128, 128, 12)];
-    UIColor *boxColorDark = [UIColor colorWithRed:0.85 green:0.687 blue:0.33 alpha:1.0];
-    extrusion.backgroundColor = boxColorDark;
-    [self.view addSubview:extrusion];
+    UIFont *font2 = [UIFont fontWithName:@"Montserrat-Regular" size:18];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(box.bounds.origin.x + 10, box.bounds.origin.y + 46, 108, 80)];
+    text.textColor = [UIColor whiteColor];
+    text.numberOfLines = 2;
+    text.font = font2;
+    text.textAlignment = NSTextAlignmentCenter;
+    text.layer.shadowColor = [[UIColor blackColor] CGColor];
+    text.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    text.layer.shadowRadius = 1;
+    text.layer.shadowOpacity = 0.10;
+    [text setText:@"Make milk mixture"];
+    [box addSubview:text];
+    
+    UIView *extrusion2 = [[UIView alloc] initWithFrame:CGRectMake(32 + 128, 64 + 128, 128, 12)];
+    UIColor *boxColorDark2 = [UIColor colorWithRed:.23 green:.61 blue:0.85 alpha:1.0];
+    extrusion2.backgroundColor = boxColorDark2;
+    [self.view addSubview:extrusion2];
     
     UIColor *boxColor2 = [UIColor colorWithRed:.38 green:.76 blue:1.0 alpha:1.0];
     SLYRecipeFlowBoxView *box2 = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32+128, 64, 128, 128)
                                                                      withBox:[self boxes][1]
                                                                    withColor:boxColor2];
+    box2.boxDelegate = self;
     [self.view addSubview:box2];
-    UIView *extrusion2 = [[UIView alloc] initWithFrame:CGRectMake(32 + 128, 64 + 128, 128, 12)];
-    UIColor *boxColorDark2 = [UIColor colorWithRed:.23 green:.61 blue:0.85 alpha:1.0];
-    extrusion2.backgroundColor = boxColorDark2;
-    [self.view addSubview:extrusion2];
     
     // Iterate over the boxes and generate the flow
     NSArray *boxes = self.boxes;
