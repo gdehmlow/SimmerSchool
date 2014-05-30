@@ -61,12 +61,7 @@
     [super viewDidLoad];
     [self setFontFamily:@"Montserrat-Regular" forView:self.view andSubViews:YES];
     
-
-    
     //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning

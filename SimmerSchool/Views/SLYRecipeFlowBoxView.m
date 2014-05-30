@@ -12,8 +12,6 @@
 @interface SLYRecipeFlowBoxView ()
 
 @property (nonatomic) CGSize boxSize;
-@property (nonatomic, strong) UIColor *color;
-@property (nonatomic, strong) UILabel *stepNumber;
 
 @end
 
@@ -21,13 +19,12 @@
 
 #pragma mark - Initializers
 
-- (id)initWithFrame:(CGRect)frame withBox:(NSDictionary *)box withColor:(UIColor *)color
+- (id)initWithFrame:(CGRect)frame withStep:(SLYRecipeStep *)step
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.box = box;
+        self.step = step;
         self.boxSize = CGSizeMake(200, 200);
-        self.color = color;
     }
     return self;
 }
@@ -50,7 +47,7 @@
     CGPoint center = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, bounds.origin.y + 32);
 
     // Draw the rectangle background
-    const CGFloat* colors = CGColorGetComponents(self.color.CGColor);
+    const CGFloat* colors = CGColorGetComponents(self.step.color.CGColor);
     CGContextSetRGBFillColor(context, colors[0], colors[1], colors[2], 1.0);
     CGContextFillRect(context, rect);
 

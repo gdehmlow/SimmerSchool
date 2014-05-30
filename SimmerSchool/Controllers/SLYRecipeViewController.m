@@ -13,6 +13,8 @@
 #import "SLYModalAnimation.h"
 #import "SLYFloodAnimation.h"
 
+#import "SLYRecipeStep.h"
+
 @interface SLYRecipeViewController () <SLYBoxDelegate>
 {
     SLYFloodAnimation *_scaleAnimationController;
@@ -22,6 +24,8 @@
 @property (nonatomic) NSUInteger recipeId;
 @property (nonatomic, strong) SLYRecipeFlowBoxView* box;
 @property (nonatomic, strong) UILabel *boxLabel;
+@property (nonatomic, strong) NSMutableDictionary *numToStepView;
+@property (nonatomic, strong) NSMutableDictionary *numToStep;
 
 @end
 
@@ -42,27 +46,32 @@
     self = [super init];
     if (self) {
         self.recipeId = recipeId;
+        self.numToStepView = [[NSMutableDictionary alloc] init];
+        self.numToStep     = [[NSMutableDictionary alloc] init];
+        
+        NSArray *boxData = [self boxes];
+        //for (int i = 0; i < boxData.count; i++) {
+        for (int i = 0; i < 1; i++) {
+            NSArray *data = boxData[i];
+            
+            // Create step model for data
+            SLYRecipeStep *step = [[SLYRecipeStep alloc] initWithName:@"Make dry mixture"
+                                                      withIngredients:@[@"flour", @"double-acting baking powder", @"sugar", @"salt"]
+                                                            withSizes:@[@"1 1/2 cup", @"1 3/4 tsp.", @"3 tbsp.", @"1 tsp."]
+                                                           withAction:@"Sift together in mixing bowl"
+                                                            withColor:[UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0]];
+            NSString *stepNumber = [NSString stringWithFormat:@"%d", i + 1];
+            [[self numToStep] setObject:step forKey:stepNumber];
+            
+            // Create step view
+            SLYRecipeFlowBoxView *boxView = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32, 80, 128, 128)
+                                                                               withStep:step];
+            boxView.boxDelegate = self;
+            self.numToStepView[stepNumber] = boxView;
+        }
     }
     return self;
 }
-
-# pragma mark - View
-/*
-- (void)loadView
-{
-    CGRect frame = [UIScreen mainScreen].bounds;
-    SLYHypnosisView *backgroundView = [[SLYHypnosisView alloc] initWithFrame:frame];
-    
-    CGRect textFieldRect = CGRectMake(40, 70, 240, 30);
-    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldRect];
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.placeholder = @"Hypnotize Me";
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.delegate = self;
-    [backgroundView addSubview:textField];
-    
-    self.view = backgroundView;
-}*/
 
 - (void)touchesBeganInBox:(SLYRecipeFlowBoxView *)box
 {
@@ -71,7 +80,6 @@
                          box.frame = CGRectMake(box.frame.origin.x, box.frame.origin.y+10, box.frame.size.width, box.frame.size.height);
                      }
                      completion:^(BOOL finished){
-                         //Do stuff when the animation completes
                      }];
 }
 
@@ -82,10 +90,10 @@
                          box.frame = CGRectMake(box.frame.origin.x, box.frame.origin.y-10, box.frame.size.width, box.frame.size.height);
                      }
                      completion:^(BOOL finished){
-                         //Do stuff when the animation completes
                      }];
     if (inBox) {
-        [self showRecipeStep];
+        [self showRecipeStepForBox:box];
+        
         /*SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:self.box];
         modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.50];
         modal.transitioningDelegate = self;
@@ -123,7 +131,6 @@
     }
 }
 
-// We'll create the colored boxes here
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -136,21 +143,66 @@
     UINavigationItem *navItem = self.navigationItem;
     navItem.title = @"Panned Cakes";
     
-    // self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
     [titleBarAttributes setValue:[UIFont fontWithName:@"Montserrat-Regular" size:18] forKey:NSFontAttributeName];
     [titleBarAttributes setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forKey:NSForegroundColorAttributeName];
     [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
     
-    UIView *curView = self.view;
-    
+    UIView *lastView = nil;
+    for (NSString *stepNumber in self.numToStepView) {
+        SLYRecipeStep *step = [self.numToStep objectForKey:stepNumber];
+        SLYRecipeFlowBoxView *stepView = [self.numToStepView objectForKey:stepNumber];
+        UIColor *color = stepView.step.color;
+        const CGFloat* colors = CGColorGetComponents(color.CGColor);
+        
+        UIView *extrusion = [[UIView alloc] initWithFrame:CGRectMake(32, 80 + 128, 128, 12)];
+        UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .2, 0.0)
+                                                green:MAX(colors[1] - .2, 0.0)
+                                                 blue:MAX(colors[2] - .2, 0.0)
+                                                alpha:1.0];
+        extrusion.backgroundColor = boxColorDark;
+        
+        if (!lastView) {
+            [self.view addSubview:extrusion];
+        } else {
+            [self.view insertSubview:extrusion aboveSubview:lastView];
+        }
+        [self.view insertSubview:stepView aboveSubview:extrusion];
+        
+        UIFont *font = [UIFont fontWithName:@"Montserrat-Regular" size:23];
+        UILabel *stepNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(stepView.bounds.origin.x + 51, stepView.bounds.origin.y + 19, 26, 26)];
+        stepNumberLabel.textColor = [UIColor whiteColor];
+        stepNumberLabel.textAlignment = NSTextAlignmentCenter;
+        stepNumberLabel.font = font;
+        stepNumberLabel.adjustsFontSizeToFitWidth = YES;
+        stepNumberLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
+        stepNumberLabel.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        stepNumberLabel.layer.shadowRadius = 1;
+        stepNumberLabel.layer.shadowOpacity = 0.10;
+        [stepNumberLabel setText:stepNumber];
+        [stepView addSubview:stepNumberLabel];
+        
+        UIFont *font2 = [UIFont fontWithName:@"Montserrat-Regular" size:18];
+        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(stepView.bounds.origin.x + 10, stepView.bounds.origin.y + 46, 108, 80)];
+        text.textColor = [UIColor whiteColor];
+        text.numberOfLines = 2;
+        text.font = font2;
+        text.textAlignment = NSTextAlignmentCenter;
+        text.layer.shadowColor = [[UIColor blackColor] CGColor];
+        text.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        text.layer.shadowRadius = 1;
+        text.layer.shadowOpacity = 0.10;
+        [text setText:step.stepName];
+        [stepView addSubview:text];
+    }
+    /*
     UIView *extrusion = [[UIView alloc] initWithFrame:CGRectMake(32, 80 + 128, 128, 12)];
     UIColor *boxColorDark = [UIColor colorWithRed:0.85 green:0.687 blue:0.33 alpha:1.0];
     extrusion.backgroundColor = boxColorDark;
     [self.view addSubview:extrusion];
     
     UIColor *boxColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0];
+
     SLYRecipeFlowBoxView *box = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32, 80, 128, 128)
                                                                     withBox:[self boxes][0]
                                                                   withColor:boxColor];
@@ -232,7 +284,7 @@
     NSArray *boxes = self.boxes;
     for (int i = 0; i < boxes.count; i++) {
         
-    }
+    }*/
     /*
     for (int i = 0; i < numIngredients; i++) {
         CGRect newFrame = CGRectMake(bounds.origin.x + 64,
@@ -263,9 +315,9 @@
 
 #pragma mark - Custom Methods
 
-- (void)showRecipeStep
+- (void)showRecipeStepForBox:(SLYRecipeFlowBoxView *)box
 {
-    SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:self.box];
+    SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:box];
     modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.80];
     modal.transitioningDelegate = self;
     modal.modalPresentationStyle = UIModalPresentationCustom;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SLYRecipeStep.h"
 
 @class SLYRecipeFlowBoxView;
 
@@ -19,10 +20,9 @@
 @interface SLYRecipeFlowBoxView : UIView
 
 @property (nonatomic, weak) id <SLYBoxDelegate> boxDelegate;
-@property (nonatomic, readonly) UIColor *color;
-@property (nonatomic, strong) NSDictionary *box;
+@property (nonatomic, strong) SLYRecipeStep *step;
 
 // Designated initializer
-- (id)initWithFrame:(CGRect)frame withBox:(NSDictionary *)box withColor:(UIColor *)color;
+- (id)initWithFrame:(CGRect)frame withStep:(SLYRecipeStep *)step;
 
 @end

@@ -22,7 +22,7 @@
 		10019574192EFD9B009337BD /* SLYRecipeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10019573192EFD9B009337BD /* SLYRecipeBadge.m */; };
 		100195781931098A009337BD /* SLYGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 100195761931098A009337BD /* SLYGameViewController.m */; };
 		100195791931098A009337BD /* SLYGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 100195771931098A009337BD /* SLYGameViewController.xib */; };
-		1001958919310E7D009337BD /* SLYRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958819310E7D009337BD /* SLYRecipe.m */; };
+		1001958919310E7D009337BD /* SLYRecipeStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958819310E7D009337BD /* SLYRecipeStep.m */; };
 		1001958C193110C7009337BD /* SLYRecipeStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958B193110C7009337BD /* SLYRecipeStepView.m */; };
 		106D2B67193468F7000FCB5F /* SLYRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 106D2B66193468F7000FCB5F /* SLYRecipeViewController.m */; };
 		10835E2219366C97005EAB0C /* SLYRecipeStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E2019366C97005EAB0C /* SLYRecipeStepViewController.m */; };
@@ -69,8 +69,8 @@
 		100195751931098A009337BD /* SLYGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYGameViewController.h; path = Controllers/SLYGameViewController.h; sourceTree = "<group>"; };
 		100195761931098A009337BD /* SLYGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYGameViewController.m; path = Controllers/SLYGameViewController.m; sourceTree = "<group>"; };
 		100195771931098A009337BD /* SLYGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SLYGameViewController.xib; path = Controllers/SLYGameViewController.xib; sourceTree = "<group>"; };
-		1001958719310E7D009337BD /* SLYRecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipe.h; path = Models/SLYRecipe.h; sourceTree = "<group>"; };
-		1001958819310E7D009337BD /* SLYRecipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipe.m; path = Models/SLYRecipe.m; sourceTree = "<group>"; };
+		1001958719310E7D009337BD /* SLYRecipeStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeStep.h; path = Models/SLYRecipeStep.h; sourceTree = "<group>"; };
+		1001958819310E7D009337BD /* SLYRecipeStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeStep.m; path = Models/SLYRecipeStep.m; sourceTree = "<group>"; };
 		1001958A193110C7009337BD /* SLYRecipeStepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeStepView.h; path = Views/SLYRecipeStepView.h; sourceTree = "<group>"; };
 		1001958B193110C7009337BD /* SLYRecipeStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeStepView.m; path = Views/SLYRecipeStepView.m; sourceTree = "<group>"; };
 		106D2B65193468F7000FCB5F /* SLYRecipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeViewController.h; path = Controllers/SLYRecipeViewController.h; sourceTree = "<group>"; };
@@ -200,8 +200,8 @@
 			children = (
 				10019572192EFD9B009337BD /* SLYRecipeBadge.h */,
 				10019573192EFD9B009337BD /* SLYRecipeBadge.m */,
-				1001958719310E7D009337BD /* SLYRecipe.h */,
-				1001958819310E7D009337BD /* SLYRecipe.m */,
+				1001958719310E7D009337BD /* SLYRecipeStep.h */,
+				1001958819310E7D009337BD /* SLYRecipeStep.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -369,7 +369,7 @@
 				10019574192EFD9B009337BD /* SLYRecipeBadge.m in Sources */,
 				100195781931098A009337BD /* SLYGameViewController.m in Sources */,
 				10835E381937C174005EAB0C /* SLYFloodAnimation.m in Sources */,
-				1001958919310E7D009337BD /* SLYRecipe.m in Sources */,
+				1001958919310E7D009337BD /* SLYRecipeStep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
