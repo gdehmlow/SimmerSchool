@@ -26,7 +26,6 @@
 		1001958C193110C7009337BD /* SLYRecipeStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1001958B193110C7009337BD /* SLYRecipeStepView.m */; };
 		106D2B67193468F7000FCB5F /* SLYRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 106D2B66193468F7000FCB5F /* SLYRecipeViewController.m */; };
 		10835E2219366C97005EAB0C /* SLYRecipeStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E2019366C97005EAB0C /* SLYRecipeStepViewController.m */; };
-		10835E2319366C97005EAB0C /* SLYRecipeStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10835E2119366C97005EAB0C /* SLYRecipeStepViewController.xib */; };
 		10835E26193670FD005EAB0C /* SLYRecipeFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E25193670FD005EAB0C /* SLYRecipeFlowView.m */; };
 		10835E29193674BB005EAB0C /* SLYRecipeFlowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E28193674BB005EAB0C /* SLYRecipeFlowBoxView.m */; };
 		10835E301936A085005EAB0C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10835E2E1936A085005EAB0C /* Montserrat-Bold.ttf */; };
@@ -77,7 +76,6 @@
 		106D2B66193468F7000FCB5F /* SLYRecipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeViewController.m; path = Controllers/SLYRecipeViewController.m; sourceTree = "<group>"; };
 		10835E1F19366C97005EAB0C /* SLYRecipeStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeStepViewController.h; path = Controllers/SLYRecipeStepViewController.h; sourceTree = "<group>"; };
 		10835E2019366C97005EAB0C /* SLYRecipeStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeStepViewController.m; path = Controllers/SLYRecipeStepViewController.m; sourceTree = "<group>"; };
-		10835E2119366C97005EAB0C /* SLYRecipeStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SLYRecipeStepViewController.xib; path = Controllers/SLYRecipeStepViewController.xib; sourceTree = "<group>"; };
 		10835E24193670FD005EAB0C /* SLYRecipeFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeFlowView.h; path = Views/SLYRecipeFlowView.h; sourceTree = "<group>"; };
 		10835E25193670FD005EAB0C /* SLYRecipeFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeFlowView.m; path = Views/SLYRecipeFlowView.m; sourceTree = "<group>"; };
 		10835E27193674BB005EAB0C /* SLYRecipeFlowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYRecipeFlowBoxView.h; path = Views/SLYRecipeFlowBoxView.h; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 				106D2B66193468F7000FCB5F /* SLYRecipeViewController.m */,
 				10835E1F19366C97005EAB0C /* SLYRecipeStepViewController.h */,
 				10835E2019366C97005EAB0C /* SLYRecipeStepViewController.m */,
-				10835E2119366C97005EAB0C /* SLYRecipeStepViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -337,7 +334,6 @@
 				100195791931098A009337BD /* SLYGameViewController.xib in Resources */,
 				1001954B192EEBA3009337BD /* InfoPlist.strings in Resources */,
 				10019553192EEBA3009337BD /* Images.xcassets in Resources */,
-				10835E2319366C97005EAB0C /* SLYRecipeStepViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

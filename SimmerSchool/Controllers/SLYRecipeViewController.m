@@ -56,9 +56,9 @@
             
             // Create step model for data
             SLYRecipeStep *step = [[SLYRecipeStep alloc] initWithName:@"Make dry mixture"
-                                                      withIngredients:@[@"flour", @"double-acting baking powder", @"sugar", @"salt"]
+                                                      withIngredients:@[@"flour", @"baking powder", @"sugar", @"salt"]
                                                             withSizes:@[@"1 1/2 cup", @"1 3/4 tsp.", @"3 tbsp.", @"1 tsp."]
-                                                           withAction:@"Sift together in mixing bowl"
+                                                           withAction:@"Sift all together in mixing bowl"
                                                             withColor:[UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0]];
             NSString *stepNumber = [NSString stringWithFormat:@"%d", i + 1];
             [[self numToStep] setObject:step forKey:stepNumber];
@@ -354,7 +354,7 @@
 - (NSArray *)ingredients
 {
     return @[
-             @[@"flour", @"double-acting baking powder", @"sugar", @"salt"],
+             @[@"flour", @"baking powder", @"sugar", @"salt"],
              ];
 }
 - (NSArray *)sizes

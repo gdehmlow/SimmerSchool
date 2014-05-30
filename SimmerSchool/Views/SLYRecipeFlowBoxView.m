@@ -68,6 +68,7 @@
     CGContextRestoreGState(context);
     [path fill];
     
+    // Draw necessary flow arrows
     UIBezierPath *triangle = [UIBezierPath bezierPath];
     [triangle moveToPoint:CGPointMake(center.x-3, 115)];
     [triangle addLineToPoint:CGPointMake(center.x+3, 115)];
@@ -77,6 +78,8 @@
     [[UIColor whiteColor] setFill];
     [triangle fill];
 }
+
+#pragma mark - Touch Events
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
