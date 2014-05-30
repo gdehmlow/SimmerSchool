@@ -10,7 +10,14 @@
 #import "SLYRecipeFlowBoxView.h"
 #import "SLYRecipeStepViewController.h"
 
+#import "SLYModalAnimation.h"
+#import "SLYFloodAnimation.h"
+
 @interface SLYRecipeViewController () <SLYBoxDelegate>
+{
+    SLYFloodAnimation *_scaleAnimationController;
+    SLYModalAnimation *_modalAnimationController;
+}
 
 @property (nonatomic) NSUInteger recipeId;
 @property (nonatomic, strong) SLYRecipeFlowBoxView* box;
@@ -78,9 +85,41 @@
                          //Do stuff when the animation completes
                      }];
     if (inBox) {
-        SLYRecipeStepViewController *rsvc = [[SLYRecipeStepViewController alloc] init];
+        [self showRecipeStep];
+        /*SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:self.box];
+        modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.50];
+        modal.transitioningDelegate = self;
+        modal.modalPresentationStyle = UIModalPresentationCustom;
+        
+        modal.view.opaque = NO; // Not really sure if needed
+        modal.view.backgroundColor = [UIColor clearColor]; // Be sure in fact that EVERY background in your view's hierarchy is totally or at least partially transparent for a kind effect!
+        
+        UIToolbar *fakeToolbar = [[UIToolbar alloc] initWithFrame:modal.view.bounds]; // .bounds or .frame? Not really sure!
+        fakeToolbar.autoresizingMask = modal.view.autoresizingMask;
+        //fakeToolbar.barTintColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.4];
+        [modal.view insertSubview:fakeToolbar atIndex:0];
+        
+        [self presentViewController:modal animated:YES completion:nil];*/
+        /*SLYRecipeStepViewController *rsvc = [[SLYRecipeStepViewController alloc] initWithBox:box];
         rsvc.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0];
-        [self.navigationController pushViewController:rsvc animated:YES];
+        
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                          style:UIBarButtonItemStyleBordered
+                                                                         target:nil
+                                                                         action:nil];*/
+        // Change the appearance of back button
+        // Change the appearance of other navigation button
+        /*UIImage *barButtonImage = [[UIImage imageNamed:@"button_normal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+        [[UIBarButtonItem appearance] setBackgroundImage:barButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];*/
+        
+        /*UIImage *backButtonImage = [UIImage imageNamed:@"bak.png"];
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];*/
+        
+        /*[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-100, 0) forBarMetrics:UIBarMetricsDefault];*/
+
+        /*[[self navigationItem] setBackBarButtonItem:newBackButton];
+        [self.navigationController pushViewController:rsvc animated:YES];*/
     }
 }
 
@@ -88,6 +127,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _modalAnimationController = [[SLYModalAnimation alloc] init];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -205,6 +246,8 @@
         NSLog(label.text);
     }*/
     // Do any additional setup after loading the view.
+    
+    _scaleAnimationController = [[SLYFloodAnimation alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -218,16 +261,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Custom Methods
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)showRecipeStep
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:self.box];
+    modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.80];
+    modal.transitioningDelegate = self;
+    modal.modalPresentationStyle = UIModalPresentationCustom;
+    [self presentViewController:modal animated:YES completion:nil];
 }
-*/
+
+#pragma mark - Transitioning Delegate (Modal)
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _modalAnimationController.type = AnimationTypePresent;
+    return _modalAnimationController;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    _modalAnimationController.type = AnimationTypeDismiss;
+    return _modalAnimationController;
+}
 
 #pragma mark - Data
 
@@ -264,4 +318,21 @@
              ];
 }
 
+#pragma mark - Navigation Controller Delegate
+
+-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    
+    BaseAnimation *animationController = _scaleAnimationController;
+
+    switch (operation) {
+        case UINavigationControllerOperationPush:
+            animationController.type = AnimationTypePresent;
+            return  animationController;
+        case UINavigationControllerOperationPop:
+            animationController.type = AnimationTypeDismiss;
+            return animationController;
+        default: return nil;
+    }
+    
+}
 @end

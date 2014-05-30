@@ -20,6 +20,7 @@
     
     SLYRecipeViewController *rvc = [[SLYRecipeViewController alloc] initWithRecipe:0];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rvc];
+    navController.delegate = rvc;
     
     self.window.rootViewController = navController;
     //self.window.rootViewController = rvc;

@@ -31,6 +31,10 @@
 		10835E29193674BB005EAB0C /* SLYRecipeFlowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E28193674BB005EAB0C /* SLYRecipeFlowBoxView.m */; };
 		10835E301936A085005EAB0C /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10835E2E1936A085005EAB0C /* Montserrat-Bold.ttf */; };
 		10835E311936A085005EAB0C /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10835E2F1936A085005EAB0C /* Montserrat-Regular.ttf */; };
+		10835E351937C123005EAB0C /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E341937C123005EAB0C /* BaseAnimation.m */; };
+		10835E381937C174005EAB0C /* SLYFloodAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E371937C174005EAB0C /* SLYFloodAnimation.m */; };
+		10835E3C19382697005EAB0C /* MyCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E3B19382697005EAB0C /* MyCategories.m */; };
+		10835E3F193861BB005EAB0C /* SLYModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10835E3E193861BB005EAB0C /* SLYModalAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,14 @@
 		10835E28193674BB005EAB0C /* SLYRecipeFlowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYRecipeFlowBoxView.m; path = Views/SLYRecipeFlowBoxView.m; sourceTree = "<group>"; };
 		10835E2E1936A085005EAB0C /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		10835E2F1936A085005EAB0C /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		10835E331937C123005EAB0C /* BaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAnimation.h; sourceTree = "<group>"; };
+		10835E341937C123005EAB0C /* BaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAnimation.m; sourceTree = "<group>"; };
+		10835E361937C174005EAB0C /* SLYFloodAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLYFloodAnimation.h; path = Animations/SLYFloodAnimation.h; sourceTree = "<group>"; };
+		10835E371937C174005EAB0C /* SLYFloodAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLYFloodAnimation.m; path = Animations/SLYFloodAnimation.m; sourceTree = "<group>"; };
+		10835E3A19382697005EAB0C /* MyCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCategories.h; path = Categories/MyCategories.h; sourceTree = "<group>"; };
+		10835E3B19382697005EAB0C /* MyCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCategories.m; path = Categories/MyCategories.m; sourceTree = "<group>"; };
+		10835E3D193861BB005EAB0C /* SLYModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLYModalAnimation.h; sourceTree = "<group>"; };
+		10835E3E193861BB005EAB0C /* SLYModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLYModalAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,9 +153,11 @@
 			children = (
 				1001954F192EEBA3009337BD /* SLYAppDelegate.h */,
 				10019550192EEBA3009337BD /* SLYAppDelegate.m */,
-				10019571192EEBCB009337BD /* Controllers */,
+				10835E321937C0C9005EAB0C /* Animations */,
+				10835E3919382651005EAB0C /* Categories */,
 				10019570192EEBC8009337BD /* Views */,
 				1001956F192EEBC1009337BD /* Models */,
+				10019571192EEBCB009337BD /* Controllers */,
 				10019552192EEBA3009337BD /* Images.xcassets */,
 				10019547192EEBA3009337BD /* Supporting Files */,
 			);
@@ -218,6 +232,28 @@
 				10835E2119366C97005EAB0C /* SLYRecipeStepViewController.xib */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		10835E321937C0C9005EAB0C /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				10835E331937C123005EAB0C /* BaseAnimation.h */,
+				10835E341937C123005EAB0C /* BaseAnimation.m */,
+				10835E3D193861BB005EAB0C /* SLYModalAnimation.h */,
+				10835E3E193861BB005EAB0C /* SLYModalAnimation.m */,
+				10835E361937C174005EAB0C /* SLYFloodAnimation.h */,
+				10835E371937C174005EAB0C /* SLYFloodAnimation.m */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
+		10835E3919382651005EAB0C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				10835E3A19382697005EAB0C /* MyCategories.h */,
+				10835E3B19382697005EAB0C /* MyCategories.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,14 +357,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1001954D192EEBA3009337BD /* main.m in Sources */,
+				10835E3C19382697005EAB0C /* MyCategories.m in Sources */,
+				10835E351937C123005EAB0C /* BaseAnimation.m in Sources */,
 				10835E29193674BB005EAB0C /* SLYRecipeFlowBoxView.m in Sources */,
 				1001958C193110C7009337BD /* SLYRecipeStepView.m in Sources */,
 				10019551192EEBA3009337BD /* SLYAppDelegate.m in Sources */,
 				10835E2219366C97005EAB0C /* SLYRecipeStepViewController.m in Sources */,
 				10835E26193670FD005EAB0C /* SLYRecipeFlowView.m in Sources */,
+				10835E3F193861BB005EAB0C /* SLYModalAnimation.m in Sources */,
 				106D2B67193468F7000FCB5F /* SLYRecipeViewController.m in Sources */,
 				10019574192EFD9B009337BD /* SLYRecipeBadge.m in Sources */,
 				100195781931098A009337BD /* SLYGameViewController.m in Sources */,
+				10835E381937C174005EAB0C /* SLYFloodAnimation.m in Sources */,
 				1001958919310E7D009337BD /* SLYRecipe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

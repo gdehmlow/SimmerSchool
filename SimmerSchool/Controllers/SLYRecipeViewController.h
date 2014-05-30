@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SLYRecipeViewController : UIViewController
+@interface SLYRecipeViewController : UIViewController <UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 - (instancetype)initWithRecipe:(NSUInteger)recipeId;
 

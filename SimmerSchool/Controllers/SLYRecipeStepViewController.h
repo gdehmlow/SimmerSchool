@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SLYRecipeFlowBoxView.h"
 
 @interface SLYRecipeStepViewController : UIViewController
+
+- (id)initWithBox:(SLYRecipeFlowBoxView *)box;
 
 @end

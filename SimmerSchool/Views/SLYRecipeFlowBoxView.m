@@ -11,7 +11,6 @@
 
 @interface SLYRecipeFlowBoxView ()
 
-@property (nonatomic, strong) NSDictionary *box;
 @property (nonatomic) CGSize boxSize;
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UILabel *stepNumber;

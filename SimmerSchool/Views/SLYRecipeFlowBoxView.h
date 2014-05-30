@@ -19,6 +19,8 @@
 @interface SLYRecipeFlowBoxView : UIView
 
 @property (nonatomic, weak) id <SLYBoxDelegate> boxDelegate;
+@property (nonatomic, readonly) UIColor *color;
+@property (nonatomic, strong) NSDictionary *box;
 
 // Designated initializer
 - (id)initWithFrame:(CGRect)frame withBox:(NSDictionary *)box withColor:(UIColor *)color;
