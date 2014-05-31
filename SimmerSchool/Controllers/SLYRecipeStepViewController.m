@@ -41,6 +41,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)next:(id)sender {
+    SLYRecipeStep *step = self.box.step;
+    [self dismissViewControllerAnimated:YES completion:^(){
+        [self.nextDelegate doneWithStep:step];
+    }];
+}
+
 -(void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
@@ -71,14 +78,15 @@
     [self setFontFamily:@"Montserrat-Regular" forView:self.view andSubViews:YES];
     UIFont *font = [UIFont fontWithName:@"Montserrat-Regular" size:18];
     
+    CGPoint center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width / 2.0,
+                                 self.view.bounds.origin.y + self.view.bounds.size.height / 2.0);
+    
     CGFloat lastY = 0.0;
     for (int i = 0; i < self.box.step.ingredients.count; i++) {
         NSString *size       = self.box.step.sizes[i];
         NSString *ingredient = self.box.step.ingredients[i];
         NSString *fullString = [NSString stringWithFormat:@"%@ %@", size, ingredient];
         
-        CGPoint center = CGPointMake(self.view.bounds.origin.x + self.view.bounds.size.width / 2.0,
-                                     self.view.bounds.origin.y + self.view.bounds.size.height / 2.0);
         
         NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         [style setLineBreakMode:NSLineBreakByWordWrapping];
@@ -137,11 +145,29 @@
     dismiss.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     dismiss.titleLabel.layer.shadowRadius = 1;
     dismiss.titleLabel.layer.shadowOpacity = 0.10;
-    [dismiss setTitle:@"<<" forState:UIControlStateNormal];
-    dismiss.frame = CGRectMake(self.view.bounds.origin.x + 5.0, self.view.bounds.origin.y + 10, 60.0, 50.0);
+    [dismiss setTitle:@"X" forState:UIControlStateNormal];
+    dismiss.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 60.0, 65.0);
     [dismiss addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:dismiss];
-    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    UIButton *next = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    next.titleLabel.font = font2;
+    [next setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    next.titleLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
+    next.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    next.titleLabel.layer.shadowRadius = 1;
+    next.titleLabel.layer.shadowOpacity = 0.10;
+    next.layer.borderColor = [UIColor whiteColor].CGColor;
+    next.layer.borderWidth = 3.0;
+    next.layer.cornerRadius = 15.0;
+    next.layer.shadowColor = [[UIColor blackColor] CGColor];
+    next.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    next.layer.shadowRadius = 1;
+    next.layer.shadowOpacity = 0.10;
+    [next setTitle:@"done" forState:UIControlStateNormal];
+    next.frame = CGRectMake(center.x - 55.0, lastY + 140.0, 80, 60);
+    [next addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:next];
 }
 
 - (void)didReceiveMemoryWarning

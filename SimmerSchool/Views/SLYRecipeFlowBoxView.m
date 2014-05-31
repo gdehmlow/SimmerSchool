@@ -25,6 +25,7 @@
     if (self) {
         self.step = step;
         self.boxSize = CGSizeMake(200, 200);
+        self.complete = NO;
     }
     return self;
 }
@@ -45,6 +46,17 @@
     CGRect bounds = self.bounds;
     
     CGPoint center = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, bounds.origin.y + 32);
+    
+    UIColor *strokeColor = [UIColor whiteColor];
+    
+    if (self.complete) {
+        const CGFloat* colors = CGColorGetComponents(self.step.color.CGColor);
+        UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .2, 0.0)
+                                                green:MAX(colors[1] - .2, 0.0)
+                                                 blue:MAX(colors[2] - .2, 0.0)
+                                                alpha:1.0];
+        strokeColor = boxColorDark;
+    }
 
     // Draw the rectangle background
     const CGFloat* colors = CGColorGetComponents(self.step.color.CGColor);
@@ -57,13 +69,17 @@
     path.lineWidth = 4;
     [path moveToPoint:CGPointMake(center.x + radius, center.y)];
     [path addArcWithCenter:center radius:radius startAngle:0.0 endAngle:M_PI * 2.0 clockwise:YES];
-    [[UIColor whiteColor] setStroke];
+    [strokeColor setStroke];
     [[UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:1.0] setFill];
 
     // Drop shadow beneath circle
     CGContextSaveGState(context);
     UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
-    CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor.CGColor);
+    if (self.complete) {
+        CGContextSetShadowWithColor(context, CGSizeMake(0, -1), 1, shadowColor.CGColor);
+    } else {
+        CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor.CGColor);
+    }
     [path stroke];
     CGContextRestoreGState(context);
     [path fill];
@@ -74,8 +90,8 @@
     [triangle addLineToPoint:CGPointMake(center.x+3, 115)];
     [triangle addLineToPoint:CGPointMake(center.x, 115 + 5)];
     [triangle closePath];
-    [[UIColor whiteColor] setStroke];
-    [[UIColor whiteColor] setFill];
+    [strokeColor setStroke];
+    [strokeColor setFill];
     [triangle fill];
 }
 

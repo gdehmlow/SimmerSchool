@@ -15,7 +15,7 @@
 
 #import "SLYRecipeStep.h"
 
-@interface SLYRecipeViewController () <SLYBoxDelegate>
+@interface SLYRecipeViewController () <SLYBoxDelegate, SLYNextDelegate>
 {
     SLYFloodAnimation *_scaleAnimationController;
     SLYModalAnimation *_modalAnimationController;
@@ -26,6 +26,11 @@
 @property (nonatomic, strong) UILabel *boxLabel;
 @property (nonatomic, strong) NSMutableDictionary *numToStepView;
 @property (nonatomic, strong) NSMutableDictionary *numToStep;
+
+@property (nonatomic) UILabel *text;
+@property (nonatomic) UILabel *stepNumber;
+
+@property (nonatomic) BOOL presentNext;
 
 @end
 
@@ -45,6 +50,7 @@
 {
     self = [super init];
     if (self) {
+        self.presentNext = NO;
         self.recipeId = recipeId;
         self.numToStepView = [[NSMutableDictionary alloc] init];
         self.numToStep     = [[NSMutableDictionary alloc] init];
@@ -67,6 +73,7 @@
             SLYRecipeFlowBoxView *boxView = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32, 80, 128, 128)
                                                                                withStep:step];
             boxView.boxDelegate = self;
+            self.box = boxView;
             self.numToStepView[stepNumber] = boxView;
         }
     }
@@ -181,6 +188,7 @@
         stepNumberLabel.layer.shadowOpacity = 0.10;
         [stepNumberLabel setText:stepNumber];
         [stepView addSubview:stepNumberLabel];
+        self.stepNumber = stepNumberLabel;
         
         UIFont *font2 = [UIFont fontWithName:@"Montserrat-Regular" size:18];
         UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(stepView.bounds.origin.x + 10, stepView.bounds.origin.y + 46, 108, 80)];
@@ -192,6 +200,7 @@
         text.layer.shadowOffset = CGSizeMake(0.0, 1.0);
         text.layer.shadowRadius = 1;
         text.layer.shadowOpacity = 0.10;
+        self.text = text;
         [text setText:step.stepName];
         [stepView addSubview:text];
     }
@@ -318,13 +327,35 @@
 - (void)showRecipeStepForBox:(SLYRecipeFlowBoxView *)box
 {
     SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:box];
+    modal.nextDelegate = self;
     modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.80];
     modal.transitioningDelegate = self;
     modal.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:modal animated:YES completion:nil];
 }
 
+- (void)doneWithStep:(SLYRecipeStep *)step
+{
+    self.text.text = @"complete";
+    UIColor *color = step.color;
+    const CGFloat* colors = CGColorGetComponents(color.CGColor);
+    
+    UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .2, 0.0)
+                                            green:MAX(colors[1] - .2, 0.0)
+                                             blue:MAX(colors[2] - .2, 0.0)
+                                            alpha:1.0];
+    self.text.textColor = boxColorDark;
+    
+    self.stepNumber.textColor = boxColorDark;
+    self.stepNumber.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    
+    SLYRecipeFlowBoxView *box = [self.numToStepView objectForKey:@"1"];
+    box.complete = YES;
+    [box setNeedsDisplay];
+}
+
 #pragma mark - Transitioning Delegate (Modal)
+
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     _modalAnimationController.type = AnimationTypePresent;
     return _modalAnimationController;
@@ -334,6 +365,7 @@
     _modalAnimationController.type = AnimationTypeDismiss;
     return _modalAnimationController;
 }
+
 
 #pragma mark - Data
 

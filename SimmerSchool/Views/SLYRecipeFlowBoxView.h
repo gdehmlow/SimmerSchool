@@ -21,6 +21,7 @@
 
 @property (nonatomic, weak) id <SLYBoxDelegate> boxDelegate;
 @property (nonatomic, strong) SLYRecipeStep *step;
+@property (nonatomic) BOOL complete;
 
 // Designated initializer
 - (id)initWithFrame:(CGRect)frame withStep:(SLYRecipeStep *)step;
