@@ -51,9 +51,9 @@
     
     if (self.complete) {
         const CGFloat* colors = CGColorGetComponents(self.step.color.CGColor);
-        UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .2, 0.0)
-                                                green:MAX(colors[1] - .2, 0.0)
-                                                 blue:MAX(colors[2] - .2, 0.0)
+        UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .1, 0.0)
+                                                green:MAX(colors[1] - .1, 0.0)
+                                                 blue:MAX(colors[2] - .1, 0.0)
                                                 alpha:1.0];
         strokeColor = boxColorDark;
     }
@@ -74,10 +74,11 @@
 
     // Drop shadow beneath circle
     CGContextSaveGState(context);
-    UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
     if (self.complete) {
+        UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
         CGContextSetShadowWithColor(context, CGSizeMake(0, -1), 1, shadowColor.CGColor);
     } else {
+        UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.07];
         CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 1, shadowColor.CGColor);
     }
     [path stroke];

@@ -56,21 +56,21 @@
         self.numToStep     = [[NSMutableDictionary alloc] init];
         
         NSArray *boxData = [self boxes];
-        //for (int i = 0; i < boxData.count; i++) {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < boxData.count; i++) {
+        //for (int i = 0; i < 1; i++) {
             NSArray *data = boxData[i];
             
             // Create step model for data
-            SLYRecipeStep *step = [[SLYRecipeStep alloc] initWithName:@"Make dry mixture"
-                                                      withIngredients:@[@"flour", @"baking powder", @"sugar", @"salt"]
-                                                            withSizes:@[@"1 1/2 cup", @"1 3/4 tsp.", @"3 tbsp.", @"1 tsp."]
-                                                           withAction:@"Sift all together in mixing bowl"
-                                                            withColor:[UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0]];
+            SLYRecipeStep *step = [[SLYRecipeStep alloc] initWithName:data[0]
+                                                      withIngredients:data[1]
+                                                            withSizes:data[2]
+                                                           withAction:data[3]
+                                                            withColor:data[4]];
             NSString *stepNumber = [NSString stringWithFormat:@"%d", i + 1];
             [[self numToStep] setObject:step forKey:stepNumber];
             
             // Create step view
-            SLYRecipeFlowBoxView *boxView = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32, 80, 128, 128)
+            SLYRecipeFlowBoxView *boxView = [[SLYRecipeFlowBoxView alloc] initWithFrame:CGRectMake(32 + 128*i, 80, 128, 128)
                                                                                withStep:step];
             boxView.boxDelegate = self;
             self.box = boxView;
@@ -159,7 +159,7 @@
     for (NSString *stepNumber in self.numToStepView) {
         SLYRecipeStep *step = [self.numToStep objectForKey:stepNumber];
         SLYRecipeFlowBoxView *stepView = [self.numToStepView objectForKey:stepNumber];
-        UIColor *color = stepView.step.color;
+        UIColor *color = step.color;
         const CGFloat* colors = CGColorGetComponents(color.CGColor);
         
         UIView *extrusion = [[UIView alloc] initWithFrame:CGRectMake(32, 80 + 128, 128, 12)];
@@ -328,7 +328,8 @@
 {
     SLYRecipeStepViewController *modal = [[SLYRecipeStepViewController alloc] initWithBox:box];
     modal.nextDelegate = self;
-    modal.view.backgroundColor = [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:0.80];
+    const CGFloat *colors = CGColorGetComponents(box.step.color.CGColor);
+    modal.view.backgroundColor = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
     modal.transitioningDelegate = self;
     modal.modalPresentationStyle = UIModalPresentationCustom;
     [self presentViewController:modal animated:YES completion:nil];
@@ -340,14 +341,30 @@
     UIColor *color = step.color;
     const CGFloat* colors = CGColorGetComponents(color.CGColor);
     
-    UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .2, 0.0)
-                                            green:MAX(colors[1] - .2, 0.0)
-                                             blue:MAX(colors[2] - .2, 0.0)
+    UIColor *boxColorDark = [UIColor colorWithRed:MAX(colors[0] - .1, 0.0)
+                                            green:MAX(colors[1] - .1, 0.0)
+                                             blue:MAX(colors[2] - .1, 0.0)
+                                            alpha:1.0];
+    
+    UIColor *shadowColor  = [UIColor colorWithRed:MAX(colors[0] - .25, 0.0)
+                                            green:MAX(colors[1] - .25, 0.0)
+                                             blue:MAX(colors[2] - .25, 0.0)
+                                            alpha:0.0];
+    UIColor *insetColor   = [UIColor colorWithRed:1.0
+                                            green:1.0
+                                             blue:1.0
                                             alpha:1.0];
     self.text.textColor = boxColorDark;
+    self.text.shadowOffset = CGSizeMake(0.0, -1.0);
+    self.text.shadowColor = shadowColor;
+    self.text.layer.shadowColor = insetColor.CGColor;
+    self.text.layer.shadowOpacity = 0.0;
     
     self.stepNumber.textColor = boxColorDark;
-    self.stepNumber.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    self.stepNumber.shadowOffset = CGSizeMake(0.0, -1.0);
+    self.stepNumber.shadowColor = shadowColor;
+    self.stepNumber.layer.shadowColor = insetColor.CGColor;
+    self.stepNumber.layer.shadowOpacity = 0.0;
     
     SLYRecipeFlowBoxView *box = [self.numToStepView objectForKey:@"1"];
     box.complete = YES;
@@ -372,14 +389,20 @@
 - (NSArray *)boxes
 {
     return @[
-             @{@"s": @"1", @"mg": @1, @"w": @2, @"lt": @[@1]},
-             @{@"s": @"2", @"mg": @1, @"w": @1, @"lt": @[@0,@1]},
-             @{@"s": @"2", @"mg": @1, @"w": @1, @"lt": @[@0,@1]},
-             @{@"s": @"3", @"mg": @1, @"w": @1, @"lt": @[@1]},
-             @{@"s": @"4", @"mg": @1, @"w": @1, @"lt": @[@0]},
-             @{@"s": @"5", @"mg": @1, @"w": @1, @"lt": @[@1]},
-             @{},
-             @{@"s": @"6", @"mg": @1, @"w": @1, @"lt": @[]},
+                @[
+                 @"Make dry mixture",
+                 @[@"flour", @"baking powder", @"sugar", @"salt"],
+                 @[@"1 1/2 cup", @"1 3/4 tsp.", @"3 tbsp.", @"1 tsp."],
+                 @"Sift all together in mixing bowl",
+                 [UIColor colorWithRed:1.0 green:0.837 blue:0.38 alpha:1.0]
+                 ],
+                @[
+                 @"Make milk mixture",
+                 @[@"milk", @"butter", @"egg yolks"],
+                 @[@"1 1/4 cup", @"3 tbsp.", @"1 or 2"],
+                 @"Stir milk mixture into dry mix thoroughly",
+                 [UIColor colorWithRed:.38 green:.76 blue:1.0 alpha:1.0]
+                 ]
              ];
 }
 
